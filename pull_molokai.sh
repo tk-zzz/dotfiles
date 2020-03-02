@@ -1,23 +1,17 @@
 #!/bin/bash
 
 DOTPATH=~/dotfiles
-#if [ ! -e "$DOTPATH/molokai/colors/molokai.vim" ]; then
-#    echo "molokai is not installed, clone from git."
-#    rm $DOTPATH/molokai -rf
-#    cd $DOTPATH
-#    git clone https://github.com/tomasr/molokai.git
-#else
-#    echo "molokai is already installed."
-#fi
 
-if [ -e "$DOTPATH/.git/modules/molokai "]; then
-    echo "molokai is already added as submodule."
-else
-    echo "molokai is not added yet."
-    git submodule add https://github.com/tomasr/molokai
-fi
-
+git submodule update --init
+git submodule foreach git fetch
 git submodule foreach git pull origin master
+
+for module in $( ls ./.git/modules ); do
+    cd ${modules}
+    git switch master
+    cd ..
+done
+
 
 if [ ! -e "~/.vim/colors" ]; then
     mkdir -p ~/.vim/colors
