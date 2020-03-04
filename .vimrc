@@ -66,27 +66,24 @@ autocmd QuickFixCmdPost *grep* cwindow
 
 colorscheme molokai
 
-"nnoremap <expr> / _(":%s/<Cursor>/&/gn")
+command! -nargs=1 Find call Find(<f-args>)
+function! Find(target)
+    execute ":tabe"
+    execute ":r!find -type f -name \"\*".a:target."\*\""
+endfunction
 
-"function! s:move_cursor_pos_mapping(str, ...)
-" let left = get(a:, 1, "<Left>")
-" let lefts = join(map(split(matchstr(a:str, '.*<Cursor>\zs.*\ze'), '.\zs'), 'left'), "")
-" return substitute(a:str, '<Cursor>', '', '') . lefts
-"endfunction
-"
-"function! _(str)
-" return s:move_cursor_pos_mapping(a:str, "\<Left>")
-"endfunction
+command! -nargs=1 Grep call Grep(<f-args>)
+function! Grep(target)
+    execute ":tabe"
+    execute ":r!grep -iro" a:target
+endfunction
 
-"function! VerticalSplitAndThrowToRight(...)
-" if a:0 >= 1
-" " vs path
-" echo .a:1
-" else
-" vs
-" end
-"endfunction
-
-function! Unko()
-echo "unko!"
+command! -nargs=* Replace call Replace(<f-args>)
+function! Replace(...)
+    if a:0 == 2
+        echo ":%s/".a:1."/".a:2."/gc"
+        execute ":%s/".a:1."/".a:2."/gc"
+    else
+        echo "put 2 args."
+    end
 endfunction
