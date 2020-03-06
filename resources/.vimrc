@@ -19,6 +19,9 @@ set t_Co=256
 set splitbelow
 ":split :spで新たに開くファイルを画面右に開く
 set splitright
+"file末尾にeolが勝手に入ることを防ぐ
+set noeol
+set binary noeol
 
 nnoremap j gj
 nnoremap k gk
