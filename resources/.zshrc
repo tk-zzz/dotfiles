@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-PROMPT='%n@%m:%~$ '
+PROMPT='🐰:%~$ '
 
 export ANDROID_HOME=~/Library/Android/sdk
 export PATH=$PATH:$ANDROID_HOME/tools
