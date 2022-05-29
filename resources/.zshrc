@@ -11,4 +11,5 @@ export PATH=$PATH:$JAVA_HOME/bin
 alias ll='ls -la'
 stty stop undef
 
-
+autoload -U compinit
+compinit
