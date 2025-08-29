@@ -1,0 +1,6 @@
+# Kitty theme除外
+kitty/.config/kitty/themes/
+# macOSの不要ファイル
+.DS_Store
+**/.DS_Store
+
