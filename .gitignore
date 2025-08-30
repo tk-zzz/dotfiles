@@ -4,3 +4,4 @@ kitty/.config/kitty/themes/
 .DS_Store
 **/.DS_Store
 
+.zshrc.local
