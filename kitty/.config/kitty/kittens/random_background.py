@@ -26,6 +26,7 @@ def main(args):
     # フォルダの中にある画像ファイルを探します
     # (.png, .jpg, .jpegという名前で終わるものを探しますね)
     image_files = list(wallpaper_path.glob('*.png')) + \
+                  list(wallpaper_path.glob('*.webp')) + \
                   list(wallpaper_path.glob('*.jpg')) + \
                   list(wallpaper_path.glob('*.jpeg'))
 
