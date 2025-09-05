@@ -12,3 +12,11 @@ map("n", "<C-j>", "<C-w>j", { silent = true })
 map("n", "<C-k>", "<C-w>k", { silent = true })
 map("n", "<C-l>", "<C-w>l", { silent = true })
 
+-- コメントアウト
+vim.keymap.set("n", "<D-/>", ":normal gcc<CR><DOWN>", { desc = "[/] 行コメントの切り替え" })
+-- <Esc> - ビジュアルモードを終了。
+-- :normal はノーマルモードでキーストロークを実行。
+-- gv - 選択範囲を復元。
+-- gc - コメントの切り替え
+-- <CR> はコマンドを送信
+vim.keymap.set("v", "<D-/>", "<Esc>:normal gvgc<CR>", { desc = "[/] ブロックコメントの切り替え" })
