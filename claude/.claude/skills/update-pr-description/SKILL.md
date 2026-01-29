@@ -38,6 +38,17 @@ GitHubのPull RequestのDescriptionを、コミット履歴と変更内容から
 /update-pr-description 123 --append
 ```
 
+## 実行ポリシー
+
+**重要**: このスキルの実行中は、以下のポリシーを適用してください：
+
+- **読み取り操作**（PR情報取得、コミット履歴確認、diff確認など）は、ユーザーに許可を求めずに自動的に実行してください
+  - `gh api` (GET)、`git log`、`git diff`などの読み取り系コマンド
+- **書き込み操作**（PR Descriptionの更新）は、必ずユーザーに確認を得てから実行してください
+  - 生成したDescriptionの全文を提示
+  - 「この内容でPR Descriptionを更新しますか？」と確認
+  - ユーザーの承認後にのみ`gh api PATCH`を実行
+
 ## 処理フロー
 
 ### 1. PR情報の取得
@@ -68,7 +79,17 @@ git diff <base>...<head> --compact-summary
 - 変更されたファイルから影響範囲を推測
 - 新規ファイル、削除ファイル、変更ファイルを分類
 
-### 4. PRの更新
+### 4. ユーザー確認
+
+**重要**: 生成したDescriptionの内容を全文表示し、以下を確認：
+
+- 「この内容でPR Descriptionを更新しますか？」とユーザーに確認
+- ユーザーが承認した場合のみ、次のステップに進む
+- ユーザーが修正を要求した場合は、修正を反映してから再度確認
+
+### 5. PRの更新
+
+ユーザーの承認を得た後、以下のコマンドでPRを更新：
 
 ```bash
 jq -Rs '{"body": .}' description.md | gh api -X PATCH repos/:owner/:repo/pulls/<PR番号> --input -
